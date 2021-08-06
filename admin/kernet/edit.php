@@ -1,13 +1,24 @@
 <?php
 require '../../config/config.php';
 require '../../config/koneksi.php';
+$id   = $_GET['id'];
+$data = $koneksi->query("SELECT * FROM kernet WHERE id_kernet = '$id'");
+$row  = $data->fetch_array();
+$json = json_encode($row);
+
+
 ?>
 <!DOCTYPE html>
 <html>
 <?php
 include '../../templates/head.php';
 ?>
-
+<style>
+  #mapid { 
+    height: 400px; 
+    width: 100%;
+    }
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
@@ -29,13 +40,13 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">USER</h1>
+                            <h1 class="m-0 text-dark">Kernet</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">USER</li>
-                                <li class="breadcrumb-item active">Tambah Data</li>
+                                <li class="breadcrumb-item active">Kernet</li>
+                                <li class="breadcrumb-item active">Edit Data</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -52,57 +63,42 @@ include '../../templates/head.php';
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- Horizontal Form -->
-                                <div class="card card-primary">
+                                <div class="card card-dark">
                                     <div class="card-header">
-                                        <h3 class="card-title">User</h3>
+                                        <h3 class="card-title">Kernet</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
                                     <div class="card-body" style="background-color: white;">
 
+                                 
+                                        <div class="form-group row">
+                                            <label for="nama_kernet" class="col-sm-2 col-form-label">Nama Kernet</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control"  name="nama_kernet" value="<?= $row['nama_kernet'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Nomor Telp</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control" id="no_telp" name="no_telp" value="<?= $row['no_telp'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                                            <div class="col-sm-10">
+                                            <textarea type="textarea" class="form-control" id="alamat" name="alamat"><?= $row['alamat'] ?></textarea>
+                                            </div>
+                                        </div>
 
-                                        <div class="form-group row">
-                                            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama" name="nama">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label">Username</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="username" name="username">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                            <div class="col-sm-10">
-                                            <input type="password" class="form-control form-pass" name="password">
-                                            <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <small>
-                                                <input class="border-checkbox form-cek" type="checkbox" id="checkbox1">
-                                                <label class="border-checkbox-label" for="checkbox1">Tampilkan Password</label>
-                                                </small>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label">Username</label>
-                                            <div class="col-sm-10">
-                                            <select class="form-control select2" data-placeholder="Pilih Role" id="role" name="role" required="">
-                                                <option value="">-Pilih-</option>
-                                                <option value="Super Admin">Super Admin</option>
-                                                <option value="Teknisi">Teknisi</option>
-                                            </select>
-                                            </div>
-                                        </div>
                                         
-
+                                        
 
                                     </div>
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/user/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('admin/kernet/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->
@@ -134,42 +130,26 @@ include '../../templates/head.php';
     <!-- jQuery -->
     <?php include_once "../../templates/script.php"; ?>
 
-    <script>
-    $(document).ready(function(){       
-            $('.form-cek').click(function(){
-                if($(this).is(':checked')){
-                    $('.form-pass').attr('type','text');
-                }else{
-                    $('.form-pass').attr('type','password');
-                }
-            });
-
-        });
-
-    </script>
-
     <?php
 
     if (isset($_POST['submit'])) {
-        $nama        = $_POST['nama'];
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
-        $role  = $_POST['role'];
+        $nama_kernet             = $_POST['nama_kernet'];
+        $no_telp           = $_POST['no_telp'];
+        $alamat               = $_POST['alamat'];
     
 
-        $submit = $koneksi->query("INSERT INTO user VALUES (
-            NULL,
-            '$nama',
-            '$username',
-            '$password',
-            '$role'
-            )");
+        $submit = $koneksi->query("UPDATE kernet SET 
+        nama_kernet = '$nama_kernet', 
+        no_telp = '$no_telp',
+        alamat = '$alamat'
+        WHERE 
+        id_kernet = '$id'");
         // var_dump($submit, $koneksi->error);
         // die;
         if ($submit) {
 
-            $_SESSION['pesan'] = "Data User Ditambahkan";
-            echo "<script>window.location.replace('../user/');</script>";
+            $_SESSION['pesan'] = "Data Kernet Ditambahkan";
+            echo "<script>window.location.replace('../kernet/');</script>";
         }
     }
     ?>
@@ -178,3 +158,45 @@ include '../../templates/head.php';
 </body>
 
 </html>
+
+
+
+<script>
+  var mymap = L.map('mapid').setView([-3.316694 , 114.590111], 14);
+
+  L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+    maxZoom: 100,
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    }).addTo(mymap);
+
+
+    var data = JSON.parse( '<?php echo $json ?>' );
+    
+
+    var marker = L.marker([data.lat, data.lng]).addTo(mymap);
+        marker.bindPopup('Lokasi Terakhir').openPopup();
+		var updateMarker = function(lat, lng) {
+		    marker
+                .setLatLng([lat, lng])
+                .addTo(mymap)
+		        .bindPopup("Your location :  " + marker.getLatLng().toString())
+		        .openPopup();
+		    return false;
+		};
+
+		mymap.on('click', function(e) {
+		    $('#latInput').val(e.latlng.lat);
+		    $('#longInput').val(e.latlng.lng);
+            updateMarker(e.latlng.lat, e.latlng.lng);
+        
+	    	});
+	    	
+	    	var updateMarkerByInputs = function() {
+			return updateMarker( $('#latInput').val() , $('#langInput').val());
+		}
+		$('#latInput').on('input', updateMarkerByInputs);
+        $('#longInput').on('input', updateMarkerByInputs);
+
+
+
+</script>

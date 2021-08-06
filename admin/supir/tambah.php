@@ -7,6 +7,12 @@ require '../../config/koneksi.php';
 <?php
 include '../../templates/head.php';
 ?>
+<style>
+  #mapid { 
+    height: 400px; 
+    width: 100%;
+    }
+</style>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -29,12 +35,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">USER</h1>
+                            <h1 class="m-0 text-dark">Supir</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">USER</li>
+                                <li class="breadcrumb-item active">Supir</li>
                                 <li class="breadcrumb-item active">Tambah Data</li>
                             </ol>
                         </div><!-- /.col -->
@@ -52,9 +58,9 @@ include '../../templates/head.php';
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- Horizontal Form -->
-                                <div class="card card-primary">
+                                <div class="card card-dark">
                                     <div class="card-header">
-                                        <h3 class="card-title">User</h3>
+                                        <h3 class="card-title">Supir</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
@@ -62,47 +68,32 @@ include '../../templates/head.php';
 
 
                                         <div class="form-group row">
-                                            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                                            <label for="nama_supir" class="col-sm-2 col-form-label">Nama Supir</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama" name="nama">
+                                                <input type="text" class="form-control"  name="nama_supir">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label">Username</label>
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Nomor Telp</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="username" name="username">
+                                                <input type="number" class="form-control" id="no_telp" name="no_telp">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                                             <div class="col-sm-10">
-                                            <input type="password" class="form-control form-pass" name="password">
-                                            <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <small>
-                                                <input class="border-checkbox form-cek" type="checkbox" id="checkbox1">
-                                                <label class="border-checkbox-label" for="checkbox1">Tampilkan Password</label>
-                                                </small>
-                                            </div>
+                                            <textarea type="textarea" class="form-control" id="alamat" name="alamat"></textarea>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label">Username</label>
-                                            <div class="col-sm-10">
-                                            <select class="form-control select2" data-placeholder="Pilih Role" id="role" name="role" required="">
-                                                <option value="">-Pilih-</option>
-                                                <option value="Super Admin">Super Admin</option>
-                                                <option value="Teknisi">Teknisi</option>
-                                            </select>
-                                            </div>
-                                        </div>
-                                        
 
+                                     
 
+                                                                   
                                     </div>
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/user/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('admin/supir/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->
@@ -134,42 +125,27 @@ include '../../templates/head.php';
     <!-- jQuery -->
     <?php include_once "../../templates/script.php"; ?>
 
-    <script>
-    $(document).ready(function(){       
-            $('.form-cek').click(function(){
-                if($(this).is(':checked')){
-                    $('.form-pass').attr('type','text');
-                }else{
-                    $('.form-pass').attr('type','password');
-                }
-            });
-
-        });
-
-    </script>
 
     <?php
 
     if (isset($_POST['submit'])) {
-        $nama        = $_POST['nama'];
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
-        $role  = $_POST['role'];
-    
+        $nama_supir             = $_POST['nama_supir'];
+        $no_telp           = $_POST['no_telp'];
+        $alamat               = $_POST['alamat'];
+        
 
-        $submit = $koneksi->query("INSERT INTO user VALUES (
+        $submit = $koneksi->query("INSERT INTO supir VALUES (
             NULL,
-            '$nama',
-            '$username',
-            '$password',
-            '$role'
+            '$nama_supir',
+            '$no_telp',
+            '$alamat'
             )");
         // var_dump($submit, $koneksi->error);
         // die;
         if ($submit) {
 
-            $_SESSION['pesan'] = "Data User Ditambahkan";
-            echo "<script>window.location.replace('../user/');</script>";
+            $_SESSION['pesan'] = "Data Supir Ditambahkan";
+            echo "<script>window.location.replace('../supir/');</script>";
         }
     }
     ?>
@@ -178,3 +154,4 @@ include '../../templates/head.php';
 </body>
 
 </html>
+

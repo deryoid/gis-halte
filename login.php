@@ -137,8 +137,8 @@ if (isset($_POST['login'])) {
 
     if ($role == "Super Admin") {
       echo "<script>window.location.replace('admin/');</script>";
-    } elseif ($role == "Kepala") {
-      echo "<script>window.location.replace('kepala/');</script>";
+    } elseif ($role == "Teknisi") {
+      echo "<script>window.location.replace('teknisi/');</script>";
     } elseif ($role == "User") {
       echo "<script>window.location.replace('user/');</script>";
   } else {

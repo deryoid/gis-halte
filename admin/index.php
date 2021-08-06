@@ -116,19 +116,25 @@ include '../templates/head.php';
 
 
 <script>
-  var mymap = L.map('mapid').setView([-3.316694 , 114.590111], 13);
+  var mymap = L.map('mapid').setView([-3.316694 , 114.590111], 14);
 
   L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
     maxZoom: 100,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
     }).addTo(mymap);
 
+    var myIcon = L.icon({
+      iconUrl: '<?= base_url() ?>/assets/dist/img/markerhalte1.png',
+      iconSize: [60, 65], // size of the icon
+      });
+     
+    
     var data = JSON.parse( '<?php echo $json ?>' );
     data.forEach(function(item){
 
     // console.log(item);
-    var marker = L.marker([item.lat, item.lng]).addTo(mymap);
-    
+    var marker = L.marker([item.lat, item.lng],{icon: myIcon}).addTo(mymap);
+    marker.bindPopup("<b><?= $key['nama_halte'] ?></b></b>").openPopup();
     })
     
 </script>

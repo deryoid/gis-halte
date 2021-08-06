@@ -29,12 +29,13 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">USER</h1>
+                            <h1 class="m-0 text-dark">Perbaikan ATM</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">USER</li>
+                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
+                                <!-- <li class="breadcrumb-item active">Data Master</li> -->
+                                <li class="breadcrumb-item active">Perbaikan ATM</li>
                                 <li class="breadcrumb-item active">Tambah Data</li>
                             </ol>
                         </div><!-- /.col -->
@@ -54,7 +55,7 @@ include '../../templates/head.php';
                                 <!-- Horizontal Form -->
                                 <div class="card card-primary">
                                     <div class="card-header">
-                                        <h3 class="card-title">User</h3>
+                                        <h3 class="card-title">Perbaikan ATM</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
@@ -62,47 +63,34 @@ include '../../templates/head.php';
 
 
                                         <div class="form-group row">
-                                            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                                            <label for="" class="col-sm-2 col-form-label">Kode Barang</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama" name="nama">
+                                            <select class="form control select2" name="id_sektoratm" data-placeholder="Pilih" style="width: 100%;" required>
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $sd = $koneksi->query("SELECT * FROM sektor_atm AS sa 
+                                                    LEFT JOIN barang AS b ON sa.kode_barang = b.kode_barang WHERE sa.status = 'Tidak Aktif'");
+                                                    foreach ($sd as $item) {
+                                                    ?>
+                                                        <option value="<?= $item['id_sektoratm'] ?>"><?= $item['kode_barang'] ?><?= $item['nama_barang'] ?></option>
+                                                        
+                                                    <?php } ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label">Username</label>
+                                            <label for="" class="col-sm-2 col-form-label">Tanggal Perbaikan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="username" name="username">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                            <div class="col-sm-10">
-                                            <input type="password" class="form-control form-pass" name="password">
-                                            <div class="border-checkbox-group border-checkbox-group-primary">
-                                                <small>
-                                                <input class="border-checkbox form-cek" type="checkbox" id="checkbox1">
-                                                <label class="border-checkbox-label" for="checkbox1">Tampilkan Password</label>
-                                                </small>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label">Username</label>
-                                            <div class="col-sm-10">
-                                            <select class="form-control select2" data-placeholder="Pilih Role" id="role" name="role" required="">
-                                                <option value="">-Pilih-</option>
-                                                <option value="Super Admin">Super Admin</option>
-                                                <option value="Teknisi">Teknisi</option>
-                                            </select>
+                                                <input type="date" class="form-control" name="tanggal_perbaikan">
                                             </div>
                                         </div>
                                         
-
-
+                                        
                                     </div>
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/user/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('admin/perbaikan/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->
@@ -134,42 +122,28 @@ include '../../templates/head.php';
     <!-- jQuery -->
     <?php include_once "../../templates/script.php"; ?>
 
-    <script>
-    $(document).ready(function(){       
-            $('.form-cek').click(function(){
-                if($(this).is(':checked')){
-                    $('.form-pass').attr('type','text');
-                }else{
-                    $('.form-pass').attr('type','password');
-                }
-            });
-
-        });
-
-    </script>
 
     <?php
-
     if (isset($_POST['submit'])) {
-        $nama        = $_POST['nama'];
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
-        $role  = $_POST['role'];
-    
+        $id_sektoratm        = $_POST['id_sektoratm'];
+        $tanggal_perbaikan   = $_POST['tanggal_perbaikan'];
 
-        $submit = $koneksi->query("INSERT INTO user VALUES (
+
+
+        $submit = $koneksi->query("INSERT INTO perbaikan VALUES (
             NULL,
-            '$nama',
-            '$username',
-            '$password',
-            '$role'
+            '$id_sektoratm',
+            '$tanggal_perbaikan',
+            NULL,
+            'Sedang Diperbaiki'
             )");
-        // var_dump($submit, $koneksi->error);
-        // die;
+
+            // var_dump($submit, $koneksi->error);die();
+       
         if ($submit) {
 
-            $_SESSION['pesan'] = "Data User Ditambahkan";
-            echo "<script>window.location.replace('../user/');</script>";
+            $_SESSION['pesan'] = "Data Perbaikan Ditambahkan";
+            echo "<script>window.location.replace('../perbaikan/');</script>";
         }
     }
     ?>
