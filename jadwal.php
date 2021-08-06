@@ -1,12 +1,12 @@
 <?php
-require '../../config/config.php';
-require '../../config/koneksi.php';
-require '../../config/day.php';
+require 'config/config.php';
+require 'config/koneksi.php';
+require 'config/day.php';
 ?>
 <!DOCTYPE html>
 <html>
 <?php
-include '../../templates/head.php';
+include 'templates_public/head.php';
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -14,13 +14,13 @@ include '../../templates/head.php';
 
         <!-- Navbar -->
         <?php
-        include '../../templates/navbar.php';
+        include 'templates_public/navbar.php';
         ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <?php
-        include '../../templates/sidebar.php';
+        include 'templates_public/sidebar.php';
         ?>
 
         <!-- Content Wrapper. Contains page content -->
@@ -30,12 +30,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Bus</h1>
+                            <h1 class="m-0 text-dark">Jadwal</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Bus</li>
+                                <li class="breadcrumb-item active">Jadwal</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,45 +51,44 @@ include '../../templates/head.php';
                             <div class="card card-warning card-outline">
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <?php
-                                    if (isset($_SESSION['pesan']) && $_SESSION['pesan'] <> '') {
-                                    ?>
-                                        <div class="alert alert-info alertinfo" role="alert">
-                                            <i class="fa fa-check-circle"> <?= $_SESSION['pesan']; ?></i>
-                                        </div>
-                                    <?php
-                                        $_SESSION['pesan'] = '';
-                                    }
-                                    ?>
 
                                     <div class="table-responsive">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead class="bg-black">
                                                 <tr align="center">
                                                     <th>No</th>
-                                                    <th>Kode Bus</th>
-                                                    <th>Merk Bus</th>
-                                                    <th>Plat Nomor</th>
-                                                    <th>Kapasitas</th>
-                                                    <th>Status Bus</th>
-                                                    <th>Opsi</th>
+                                                    <th>Perangkat</th>
+                                                    <th>Jadwal</th>
                                                 </tr>
                                             </thead>
                                             <tbody style="background-color: azure">
                                             <?php
                                             $no = 1;
-                                            $data = $koneksi->query("SELECT * FROM bus WHERE status_bus = 'Tidak Aktif'");
+                                            $data = $koneksi->query("SELECT * FROM jadwal AS j 
+                                            LEFT JOIN halte AS h ON j.id_halte = h.id_halte
+                                            LEFT JOIN bus AS b ON j.id_bus = b.id_bus
+                                            LEFT JOIN supir AS s ON j.id_supir = s.id_supir
+                                            LEFT JOIN kernet AS k ON j.id_kernet = k.id_kernet
+                                            ");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                     <tr>
                                                         <td align="center"><?= $no++ ?></td>
-                                                        <td><?= $row['kd_bus'] ?></td>
-                                                        <td><?= $row['merk_bus'] ?></td>
-                                                        <td><?= $row['plat_nomor'] ?></td>
-                                                        <td><?= $row['kapasitas'] ?></td>
-                                                        <td><?= $row['status_bus'] ?></td>
-                                                        <td align="center">
-                                                            <a href="edit?id=<?= $row['id_bus'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-tools"> Ubah Status</i></a>
+                                                        <td>
+                                                            <ul>
+                                                                <li>Plat Nomor Bus <?= ": ".$row['plat_nomor'] ?></li>
+                                                                <li>Nama Supir <?= ": ".$row['nama_supir'] ?></li>
+                                                                <li>Nama Kernet <?= ": ".$row['nama_kernet'] ?></li>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <ul>
+                                                                <b>
+                                                                <li>Nama Halte <?= ": ".$row['nama_halte'] ?></li>
+                                                                <li>Tanggal <?= ": ".$row['tanggal_jadwal'] ?></li>
+                                                                <li>Jam <?= ": ".$row['jam'] ?></li>
+                                                                </b>
+                                                            </ul>
                                                         </td>
                                                     </tr>
                                                     <?php } ?>
@@ -111,7 +110,7 @@ include '../../templates/head.php';
         </div>
         <!-- /.content-wrapper -->
 
-        <?php include_once "../../templates/footer.php"; ?>
+        <?php include_once "templates_public/footer.php"; ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -122,7 +121,7 @@ include '../../templates/head.php';
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <?php include_once "../../templates/script.php"; ?>
+    <?php include_once "templates_public/script.php"; ?>
 
     <script>
         $(document).on('click', '[data-toggle="lightbox"]', function(event) {

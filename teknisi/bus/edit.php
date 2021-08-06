@@ -75,26 +75,26 @@ include '../../templates/head.php';
                                     <div class="form-group row">
                                             <label for="kd_bus" class="col-sm-2 col-form-label">Kode Bus</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"  name="kd_bus" value="<?= $row['kd_bus'] ?>">
+                                                <input type="text" class="form-control"  name="kd_bus" value="<?= $row['kd_bus'] ?>" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="merk_bus" class="col-sm-2 col-form-label">Merk Bus</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="merk_bus" name="merk_bus" value="<?= $row['merk_bus'] ?>">
+                                                <input type="text" class="form-control" id="merk_bus" name="merk_bus" value="<?= $row['merk_bus'] ?>" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="plat_nomor" class="col-sm-2 col-form-label">Plat Nomor</label>
                                             <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="plat_nomor" name="plat_nomor" value="<?= $row['plat_nomor'] ?>">
+                                            <input type="text" class="form-control" id="plat_nomor" name="plat_nomor" value="<?= $row['plat_nomor'] ?>" readonly>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label for="kapasitas" class="col-sm-2 col-form-label">Kapasitas</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control"  name="kapasitas" value="<?= $row['kapasitas'] ?>">
+                                                <input type="number" class="form-control"  name="kapasitas" value="<?= $row['kapasitas'] ?>" readonly>
                                             </div>
                                         </div>
 

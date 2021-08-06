@@ -107,7 +107,7 @@ include '../../templates/head.php';
                                             <select class="custom-select select2 mb-0 col-sm-10" name="id_bus" data-placeholder="Pilih" required>
                                                 <option value=""></option>
                                                 <?php
-                                                $data = $koneksi->query("SELECT * FROM bus");
+                                                $data = $koneksi->query("SELECT * FROM bus WHERE status_bus = 'Aktif'");
                                                 foreach ($data as $d) {
                                                 ?>
                                                     <option value="<?= $d['id_bus'] ?>" <?php if ($d['id_bus'] == $row['id_bus']) {
