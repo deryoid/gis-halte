@@ -30,12 +30,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Perbaikan ATM</h1>
+                            <h1 class="m-0 text-dark">Bus yang tidak Aktif (Dalam Perbaikan)</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Data Master</a></li> -->
-                                <li class="breadcrumb-item active">Perbaikan ATM</li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Bus yang tidak Aktif (Dalam Perbaikan)</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -48,9 +48,9 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card card-primary card-outline">
+                            <div class="card card-warning card-outline">
                                 <div class="card-header">
-                                    <a href="tambah" class="btn bg-blue"><i class="fa fa-plus-circle"> Tambah Data</i></a>
+                                    <!-- <a href="tambah" class="btn bg-blue"><i class="fa fa-plus-circle"> Tambah Data</i></a> -->
                                     <!-- <a href="print" target="blank" class="btn bg-white"><i class="fa fa-print"> Cetak</i></a> -->
                                 </div>
                                 <!-- /.card-header -->
@@ -68,50 +68,32 @@ include '../../templates/head.php';
 
                                     <div class="table-responsive">
                                         <table id="example1" class="table table-bordered table-striped">
-                                            <thead class="bg-blue">
+                                            <thead class="bg-black">
                                                 <tr align="center">
                                                     <th>No</th>
-                                                    <th>Sektor ATM</th>
-                                                    <th>Lokasi ATM</th>
-                                                    <th>Tanggal Perbaikan</th>
-                                                    <th>Status Perbaikan</th>
-                                                    <th>Opsi</th>
+                                                    <th>Kode Bus</th>
+                                                    <th>Merk Bus</th>
+                                                    <th>Plat Nomor</th>
+                                                    <th>Kapasitas</th>
+                                                    <th>Status Bus</th>
                                                 </tr>
                                             </thead>
+                                            <tbody style="background-color: azure">
                                             <?php
                                             $no = 1;
-                                            $data = $koneksi->query("SELECT * FROM perbaikan AS p 
-                                            LEFT JOIN sektor_atm AS sa ON p.id_sektoratm = sa.id_sektoratm 
-                                            LEFT JOIN barang AS b ON sa.kode_barang = b.kode_barang
-                                            WHERE sa.status = 'Tidak Aktif' ORDER BY p.id_perbaikan DESC");
+                                            $data = $koneksi->query("SELECT * FROM bus WHERE status_bus = 'Tidak Aktif'");
                                             while ($row = $data->fetch_array()) {
                                             ?>
-                                                <tbody style="background-color: white">
                                                     <tr>
                                                         <td align="center"><?= $no++ ?></td>
-                                                        <td>
-                                                            <ul>
-                                                            <li>Kode ATM : <?= $row['kode_barang'] ?></li>
-                                                            <li>Nama ATM : <?= $row['nama_barang'] ?></li>
-                                                            <li>Tanggal Peletakan : <?= $row['tgl_peletakan'] ?></li>
-                                                            <li>Status Engine : <?= $row['status'] ?></li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <ul>
-                                                            <li><?= $row['lokasi_atm'] ?></li>
-                                                            <li><a href="<?= $row['link_gmap'] ?>" target="blank" class="fa fa-map-marked-alt"> Lihat Map</a></li>
-                                                            </ul>
-                                                        </td>
-                                                        <td><?= $row['tanggal_perbaikan'] ?></td>
-                                                        <td><?= $row['status_perbaikan'] ?></td>
-                                                        <td align="center">
-                                                            <a href="edit?id=<?= $row['id_perbaikan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
-                                                            <a href="hapus?id=<?= $row['id_perbaikan'] ?>" class="btn btn-danger btn-sm alert-hapus" title="Hapus"><i class="fa fa-trash"></i></a>
-                                                        </td>
+                                                        <td><?= $row['kd_bus'] ?></td>
+                                                        <td><?= $row['merk_bus'] ?></td>
+                                                        <td><?= $row['plat_nomor'] ?></td>
+                                                        <td><?= $row['kapasitas'] ?></td>
+                                                        <td><?= $row['status_bus'] ?></td>
                                                     </tr>
+                                                    <?php } ?>
                                                 </tbody>
-                                            <?php } ?>
                                         </table>
                                     </div>
 
@@ -149,6 +131,8 @@ include '../../templates/head.php';
                 alwaysShowClose: true
             });
         });
+
+
     </script>
 
 </body>

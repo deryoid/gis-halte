@@ -4,7 +4,11 @@ include '../../config/koneksi.php';
 
 $no = 1;
 
-$data = $koneksi->query("SELECT * FROM perusahaan  ORDER BY id_perusahaan DESC");
+$data = $koneksi->query("SELECT * FROM
+surat_masuk AS sm 
+LEFT JOIN pegawai AS p ON sm.id_peg = p.id_peg
+LEFT JOIN kategori AS k ON sm.id_kategori = k.id_kategori
+ORDER BY sm.id_sm DESC");
 
 $bln = array(
     '01' => 'Januari',
@@ -35,15 +39,10 @@ $bln = array(
 </head>
 
 <body>
-<img src="<?=base_url('assets/dist/img/logo_pln.jpg')?>" align="left" width="90" height="90">
-  <p align="center"><b>
-    <font size="7">PT. GERAI INDAH MARABAHAN</font> <br> <br> <br> <br>
-    <hr size="2px" color="black">
-    <center><font size="2">Alamat : Jl. AES Nasution, Marabahan Kota, Marabahan Kabupaten Barito Kuala Kalimantan Selatan </font></center>
-    <hr size="2px" color="black">
-  </b></p>
+    <!-- <img src="<?= base_url('assets/dist/img/.png') ?>" align="left" width="90" height="90"> -->
     <p align="center"><b>
-            <font size="5">Output Perusahaan</font> <br>
+            <font size="5">Output Surat Masuk</font> <br>
+            <font size="5">DPRD KABUPATEN KOTABARU</font><br><br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -54,9 +53,12 @@ $bln = array(
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Bidang Perusahaan</th>
-                            <th>Alamat</th>
+                            <th>Nomor Surat Masuk</th>
+                            <th>Tanggal Terima</th>
+                            <th>Nama Pegawai</th>
+                            <th>Kategori</th>
+                            <th>Keterangan Surat</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
 
@@ -64,9 +66,13 @@ $bln = array(
                         <?php while ($row = mysqli_fetch_array($data)) { ?>
                             <tr>
                                 <td align="center"><?= $no++ ?></td>
-                                <td><?= $row['nama_perusahaan'] ?></td>
-                                <td><?= $row['bidang_perusahaan'] ?></td>
-                                <td><?= $row['alamat_perusahaan'] ?></td>
+                                <td><?= $row['no_surat'] ?></td>
+                                <td><?= tgl_indo($row['tgl_terima']) ?></td>
+                                <td><?= $row['nama'] ?></td>
+                                <td><?= $row['nama_kategori'] ?></td>
+                                <td><?= $row['ket_surat'] ?></td>
+                                <td>Verifikasi Admin : <?=  $row['status_admin'] ?>
+                                Verifikasi Pimpinan :<?=  $row['status_pimpinan'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -80,16 +86,6 @@ $bln = array(
 
     </div>
 
-    </div>
-    <div style="text-align: center; display: inline-block; float: right;">
-  <h5>
-    Banjarmasin , <?php echo tgl_indo(date('Y-m-d')); ?><br>
-    
-    <br><br><br><br>
-    Pimpinan
-  </h5>
-
-</div>
 
 </body>
 

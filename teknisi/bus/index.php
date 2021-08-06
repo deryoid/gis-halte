@@ -30,12 +30,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Sektor ATM</h1>
+                            <h1 class="m-0 text-dark">Bus</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Data Master</a></li> -->
-                                <li class="breadcrumb-item active">Sektor ATM</li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Bus</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -48,44 +48,52 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card card-primary card-outline">
-                                <!-- <div class="card-header">
-                                    <a href="tambah" class="btn bg-blue"><i class="fa fa-plus-circle"> Tambah Data</i></a>
-                                    <a href="print" target="blank" class="btn bg-white"><i class="fa fa-print"> Cetak</i></a>
-                                </div> -->
+                            <div class="card card-warning card-outline">
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <?php
+                                    if (isset($_SESSION['pesan']) && $_SESSION['pesan'] <> '') {
+                                    ?>
+                                        <div class="alert alert-info alertinfo" role="alert">
+                                            <i class="fa fa-check-circle"> <?= $_SESSION['pesan']; ?></i>
+                                        </div>
+                                    <?php
+                                        $_SESSION['pesan'] = '';
+                                    }
+                                    ?>
 
                                     <div class="table-responsive">
                                         <table id="example1" class="table table-bordered table-striped">
-                                            <thead class="bg-blue">
+                                            <thead class="bg-black">
                                                 <tr align="center">
                                                     <th>No</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>Lokasi ATM</th>
-                                                    <th>Link Gmaps</th>
-                                                    <th>Tanggal Peletakan</th>
-                                                    <th>Status</th>
+                                                    <th>Kode Bus</th>
+                                                    <th>Merk Bus</th>
+                                                    <th>Plat Nomor</th>
+                                                    <th>Kapasitas</th>
+                                                    <th>Status Bus</th>
+                                                    <th>Opsi</th>
                                                 </tr>
                                             </thead>
+                                            <tbody style="background-color: azure">
                                             <?php
                                             $no = 1;
-                                            $data = $koneksi->query("SELECT * FROM sektor_atm AS sa 
-                                            LEFT JOIN barang AS b ON sa.kode_barang = b.kode_barang
-                                            ORDER BY sa.id_sektoratm DESC");
+                                            $data = $koneksi->query("SELECT * FROM bus WHERE status_bus = 'Tidak Aktif'");
                                             while ($row = $data->fetch_array()) {
                                             ?>
-                                                <tbody style="background-color: white">
                                                     <tr>
                                                         <td align="center"><?= $no++ ?></td>
-                                                        <td><?= $row['kode_barang'] ?></td>
-                                                        <td><?= $row['lokasi_atm'] ?></td>
-                                                        <td align="center"><a href="<?= $row['link_gmap'] ?>" target="blank" class="fa fa-map-marked-alt"> Lihat Map</a></td>
-                                                        <td><?= $row['tgl_peletakan'] ?></td>
-                                                        <td><?= $row['status'] ?></td>
+                                                        <td><?= $row['kd_bus'] ?></td>
+                                                        <td><?= $row['merk_bus'] ?></td>
+                                                        <td><?= $row['plat_nomor'] ?></td>
+                                                        <td><?= $row['kapasitas'] ?></td>
+                                                        <td><?= $row['status_bus'] ?></td>
+                                                        <td align="center">
+                                                            <a href="edit?id=<?= $row['id_bus'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-coogs">Ubah Status</i></a>
+                                                        </td>
                                                     </tr>
+                                                    <?php } ?>
                                                 </tbody>
-                                            <?php } ?>
                                         </table>
                                     </div>
 
@@ -123,6 +131,8 @@ include '../../templates/head.php';
                 alwaysShowClose: true
             });
         });
+
+
     </script>
 
 </body>

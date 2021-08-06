@@ -7,6 +7,12 @@ require '../../config/koneksi.php';
 <?php
 include '../../templates/head.php';
 ?>
+<style>
+  #mapid { 
+    height: 400px; 
+    width: 100%;
+    }
+</style>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -29,13 +35,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Perbaikan ATM</h1>
+                            <h1 class="m-0 text-dark">Bus</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
-                                <!-- <li class="breadcrumb-item active">Data Master</li> -->
-                                <li class="breadcrumb-item active">Perbaikan ATM</li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Bus</li>
                                 <li class="breadcrumb-item active">Tambah Data</li>
                             </ol>
                         </div><!-- /.col -->
@@ -53,9 +58,9 @@ include '../../templates/head.php';
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- Horizontal Form -->
-                                <div class="card card-primary">
+                                <div class="card card-dark">
                                     <div class="card-header">
-                                        <h3 class="card-title">Perbaikan ATM</h3>
+                                        <h3 class="card-title">Bus</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
@@ -63,34 +68,50 @@ include '../../templates/head.php';
 
 
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label">Kode Barang</label>
+                                            <label for="kd_bus" class="col-sm-2 col-form-label">Kode Bus</label>
                                             <div class="col-sm-10">
-                                            <select class="form control select2" name="id_sektoratm" data-placeholder="Pilih" style="width: 100%;" required>
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $sd = $koneksi->query("SELECT * FROM sektor_atm AS sa 
-                                                    LEFT JOIN barang AS b ON sa.kode_barang = b.kode_barang WHERE sa.status = 'Tidak Aktif'");
-                                                    foreach ($sd as $item) {
-                                                    ?>
-                                                        <option value="<?= $item['id_sektoratm'] ?>"><?= $item['kode_barang'] ?><?= $item['nama_barang'] ?></option>
-                                                        
-                                                    <?php } ?>
-                                                </select>
+                                                <input type="text" class="form-control"  name="kd_bus">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label">Tanggal Perbaikan</label>
+                                            <label for="merk_bus" class="col-sm-2 col-form-label">Merk Bus</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control" name="tanggal_perbaikan">
+                                                <input type="text" class="form-control" id="merk_bus" name="merk_bus">
                                             </div>
                                         </div>
-                                        
-                                        
+                                        <div class="form-group row">
+                                            <label for="plat_nomor" class="col-sm-2 col-form-label">Plat Nomor</label>
+                                            <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="plat_nomor" name="plat_nomor">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="kapasitas" class="col-sm-2 col-form-label">Kapasitas</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control"  name="kapasitas">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="long" class="col-sm-2 col-form-label">Status</label>
+                                            <div class="col-sm-10">
+                                            <select class="form-control select2" data-placeholder="Pilih" id="status_bus" name="status_bus" required="">
+                                                <option value="">-Pilih-</option>
+                                                <option value="Aktif">Aktif</option>
+                                                <option value="Tidak Aktif">Tidak Aktif</option>
+                                            </select>
+                                            </div>
+                                        </div>
+
+                                     
+
+                                                                   
                                     </div>
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/perbaikan/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('admin/bus/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->
@@ -124,26 +145,29 @@ include '../../templates/head.php';
 
 
     <?php
+
     if (isset($_POST['submit'])) {
-        $id_sektoratm        = $_POST['id_sektoratm'];
-        $tanggal_perbaikan   = $_POST['tanggal_perbaikan'];
+        $kd_bus             = $_POST['kd_bus'];
+        $merk_bus           = $_POST['merk_bus'];
+        $plat_nomor               = $_POST['plat_nomor'];
+        $kapasitas                  = $_POST['kapasitas'];
+        $status_bus                  = $_POST['status_bus'];
+        
 
-
-
-        $submit = $koneksi->query("INSERT INTO perbaikan VALUES (
+        $submit = $koneksi->query("INSERT INTO bus VALUES (
             NULL,
-            '$id_sektoratm',
-            '$tanggal_perbaikan',
-            NULL,
-            'Sedang Diperbaiki'
+            '$kd_bus',
+            '$merk_bus',
+            '$plat_nomor',
+            '$kapasitas',
+            '$status_bus'
             )");
-
-            // var_dump($submit, $koneksi->error);die();
-       
+        // var_dump($submit, $koneksi->error);
+        // die;
         if ($submit) {
 
-            $_SESSION['pesan'] = "Data Perbaikan Ditambahkan";
-            echo "<script>window.location.replace('../perbaikan/');</script>";
+            $_SESSION['pesan'] = "Data Bus Ditambahkan";
+            echo "<script>window.location.replace('../bus/');</script>";
         }
     }
     ?>
@@ -152,3 +176,4 @@ include '../../templates/head.php';
 </body>
 
 </html>
+

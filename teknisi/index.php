@@ -7,10 +7,7 @@ require '../config/tglindo.php';
 <html>
 <?php
 include '../templates/head.php';
-$pengumuman = $koneksi->query("SELECT * FROM perbaikan AS p 
-LEFT JOIN sektor_atm AS sa ON p.id_sektoratm = sa.id_sektoratm 
-LEFT JOIN barang AS b ON sa.kode_barang = b.kode_barang
-WHERE sa.status = 'Tidak Aktif' ORDER BY p.id_perbaikan DESC");
+$pengumuman = $koneksi->query("SELECT * FROM bus WHERE status_bus = 'Tidak Aktif' ORDER BY id_bus DESC");
 
 ?>
 
@@ -70,9 +67,9 @@ WHERE sa.status = 'Tidak Aktif' ORDER BY p.id_perbaikan DESC");
             <div class="card card-widget" >
               <div class="card-header" style="background-color:dodgerblue;">
                 <div class="user-block">
-                  <img class="img-circle" src="<?= base_url() ?>/assets/dist/img/logo.jpeg" alt="User Image">
-                  <span class="username" ><a href="#" style="color:white;">Qualita Indonesia</a></span>
-                  <span class="description" style="color:white;">Tanggal Perbaikan <?php echo tgl_indo($p['tanggal_perbaikan']);?></span>
+                  <img class="img-circle" src="<?= base_url() ?>/assets/dist/img/bajarmasin.png" style="width: 20px; height: 25px;"  alt="User Image">
+                  <span class="username" ><a href="#" style="color:white;">Pemerinta Kota Banjarmasin</a></span>
+                  <span class="description" style="color:white;">Tanggal Perbaikan <?php echo tgl_indo(date('y-m-d'));?></span>
                 </div>
                 <!-- /.user-block -->
                 <div class="card-tools">
@@ -88,21 +85,18 @@ WHERE sa.status = 'Tidak Aktif' ORDER BY p.id_perbaikan DESC");
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- post text -->
-                <h3>Perbaikan ATM</h3>
+                <h3>Perbaikan Bus</h3>
                 <hr>
                 <p>
                 <tbody style="background-color: white">
                     <tr>
                             <ul>
-                            <li>Kode ATM : <?= $p['kode_barang'] ?></li>
-                            <li>Nama ATM : <?= $p['nama_barang'] ?></li>
-                            <li>Tanggal Peletakan : <?= $p['tgl_peletakan'] ?></li>
-                            <li>Status Engine : <?= $p['status'] ?></li>
+                            <li>Kode Bus : <?= $p['kd_bus'] ?></li>
+                            <li>Merk Bus: <?= $p['merk_bus'] ?></li>
+                            <li>Plat Nomor : <?= $p['plat_nomor'] ?></li>
+                            <li>Kapasitas : <?= $p['kapasitas'] ?></li>
+                            <li>Status Bus : <?= $p['status_bus'] ?></li>
                             
-                            <li><?= $p['lokasi_atm'] ?></li>
-                            <li><a href="<?= $p['link_gmap'] ?>" target="blank" class="fa fa-map-marked-alt"> Lihat Map</a></li>
-                            <li><?= $p['tanggal_perbaikan'] ?></li>
-                            <li><?= $p['status_perbaikan'] ?></li>
                             </ul>
                 </tbody>
                 </p>

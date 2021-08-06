@@ -141,33 +141,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('kepala/suratmasuk/') ?>" class="nav-link">
-              <i class="nav-icon fas fa-envelope-open-text"></i>
+            <a href="<?= base_url('teknisi/bus') ?>" class="nav-link">
+              <i class="nav-icon fas fa-tools"></i>
               <p>
-                Surat Masuk
+                Perbaikan Bus
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?= base_url('kepala/suratkeluar/') ?>" class="nav-link">
-              <i class="nav-icon fas fa-paper-plane"></i>
-              <p>
-                Surat Keluar
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?= base_url('kepala/spd/') ?>" class="nav-link">
-              <i class="nav-icon fas fa-plane-departure"></i>
-              <p>
-                Surat Perjalanan Dinas
-              </p>
-            </a>
-          </li>
-
-
-
-
 
 
         </ul>
