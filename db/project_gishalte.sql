@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 06 Agu 2021 pada 14.35
+-- Waktu pembuatan: 13 Agu 2021 pada 02.09
 -- Versi server: 5.7.24
 -- Versi PHP: 7.4.12
 
@@ -41,8 +41,8 @@ CREATE TABLE `bus` (
 --
 
 INSERT INTO `bus` (`id_bus`, `kd_bus`, `merk_bus`, `plat_nomor`, `kapasitas`, `status_bus`) VALUES
-(2, 'B1201', 'Hilux', 'DA 3005 BK', '30', 'Aktif'),
-(3, 'B1200', 'Hinno', 'DA 3766 UB', '25', 'Aktif');
+(2, 'B1201', 'Hilux', 'DA 3005 BK', '30', 'Tidak Aktif'),
+(3, 'B1200', 'Hinno', 'DA 3766 UB', '25', 'Tidak Aktif');
 
 -- --------------------------------------------------------
 
