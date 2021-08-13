@@ -4,7 +4,6 @@ include '../../config/koneksi.php';
 
 $no = 1;
 
-$data = $koneksi->query("SELECT * FROM perusahaan  ORDER BY id_perusahaan DESC");
 
 $bln = array(
     '01' => 'Januari',
@@ -35,15 +34,8 @@ $bln = array(
 </head>
 
 <body>
-<img src="<?=base_url('assets/dist/img/logo_pln.jpg')?>" align="left" width="90" height="90">
-  <p align="center"><b>
-    <font size="7">PT. GERAI INDAH MARABAHAN</font> <br> <br> <br> <br>
-    <hr size="2px" color="black">
-    <center><font size="2">Alamat : Jl. AES Nasution, Marabahan Kota, Marabahan Kabupaten Barito Kuala Kalimantan Selatan </font></center>
-    <hr size="2px" color="black">
-  </b></p>
     <p align="center"><b>
-            <font size="5">Output Perusahaan</font> <br>
+            <font size="5">Laporan Bus yang tidak Aktif (Dalam Perbaikan)</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -52,23 +44,30 @@ $bln = array(
             <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Bidang Perusahaan</th>
-                            <th>Alamat</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($data)) { ?>
-                            <tr>
-                                <td align="center"><?= $no++ ?></td>
-                                <td><?= $row['nama_perusahaan'] ?></td>
-                                <td><?= $row['bidang_perusahaan'] ?></td>
-                                <td><?= $row['alamat_perusahaan'] ?></td>
-                            </tr>
-                        <?php } ?>
+                    <tr align="center">
+                                                    <th>No</th>
+                                                    <th>Kode Bus</th>
+                                                    <th>Merk Bus</th>
+                                                    <th>Plat Nomor</th>
+                                                    <th>Kapasitas</th>
+                                                    <th>Status Bus</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="background-color: azure">
+                                            <?php
+                                            $no = 1;
+                                            $data = $koneksi->query("SELECT * FROM bus WHERE status_bus = 'Tidak Aktif'");
+                                            while ($row = $data->fetch_array()) {
+                                            ?>
+                                                    <tr>
+                                                        <td align="center"><?= $no++ ?></td>
+                                                        <td><?= $row['kd_bus'] ?></td>
+                                                        <td><?= $row['merk_bus'] ?></td>
+                                                        <td><?= $row['plat_nomor'] ?></td>
+                                                        <td><?= $row['kapasitas'] ?></td>
+                                                        <td><?= $row['status_bus'] ?></td>
+                                                    </tr>
+                                                    <?php } ?>
                     </tbody>
 
                 </table>

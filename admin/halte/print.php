@@ -4,12 +4,6 @@ include '../../config/koneksi.php';
 
 $no = 1;
 
-$data = $koneksi->query("SELECT * FROM
-surat_masuk AS sm 
-LEFT JOIN pegawai AS p ON sm.id_peg = p.id_peg
-LEFT JOIN kategori AS k ON sm.id_kategori = k.id_kategori
-ORDER BY sm.id_sm DESC");
-
 $bln = array(
     '01' => 'Januari',
     '02' => 'Februari',
@@ -39,10 +33,8 @@ $bln = array(
 </head>
 
 <body>
-    <!-- <img src="<?= base_url('assets/dist/img/.png') ?>" align="left" width="90" height="90"> -->
     <p align="center"><b>
-            <font size="5">Output Surat Masuk</font> <br>
-            <font size="5">DPRD KABUPATEN KOTABARU</font><br><br>
+            <font size="5">Laporan Halte</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -51,30 +43,26 @@ $bln = array(
             <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
-                        <tr>
+                    <tr align="center">
                             <th>No</th>
-                            <th>Nomor Surat Masuk</th>
-                            <th>Tanggal Terima</th>
-                            <th>Nama Pegawai</th>
-                            <th>Kategori</th>
-                            <th>Keterangan Surat</th>
-                            <th>Status</th>
+                            <th>Kode Halte</th>
+                            <th>Nama Halte</th>
+                            <th>Alamat</th>
                         </tr>
                     </thead>
-
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($data)) { ?>
+                    <tbody style="background-color: azure">
+                    <?php
+                    $no = 1;
+                    $data = $koneksi->query("SELECT * FROM halte");
+                    while ($row = $data->fetch_array()) {
+                    ?>
                             <tr>
                                 <td align="center"><?= $no++ ?></td>
-                                <td><?= $row['no_surat'] ?></td>
-                                <td><?= tgl_indo($row['tgl_terima']) ?></td>
-                                <td><?= $row['nama'] ?></td>
-                                <td><?= $row['nama_kategori'] ?></td>
-                                <td><?= $row['ket_surat'] ?></td>
-                                <td>Verifikasi Admin : <?=  $row['status_admin'] ?>
-                                Verifikasi Pimpinan :<?=  $row['status_pimpinan'] ?></td>
+                                <td><?= $row['kd_halte'] ?></td>
+                                <td><?= $row['nama_halte'] ?></td>
+                                <td><?= $row['alamat'] ?></td>
                             </tr>
-                        <?php } ?>
+                            <?php } ?>
                     </tbody>
 
                 </table>

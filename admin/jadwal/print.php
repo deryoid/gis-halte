@@ -3,12 +3,14 @@ include '../../config/config.php';
 include '../../config/koneksi.php';
 
 $no = 1;
-
-$data = $koneksi->query("SELECT * FROM
-surat_masuk AS sm 
-LEFT JOIN pegawai AS p ON sm.id_peg = p.id_peg
-LEFT JOIN kategori AS k ON sm.id_kategori = k.id_kategori
-ORDER BY sm.id_sm DESC");
+$tglmulai   = $_POST['tglmulai'];
+$tglselesai = $_POST['tglselesai'];
+$data = $koneksi->query("SELECT * FROM jadwal AS j 
+LEFT JOIN halte AS h ON j.id_halte = h.id_halte
+LEFT JOIN bus AS b ON j.id_bus = b.id_bus
+LEFT JOIN supir AS s ON j.id_supir = s.id_supir
+LEFT JOIN kernet AS k ON j.id_kernet = k.id_kernet
+WHERE (tanggal_jadwal BETWEEN '$tglmulai' AND '$tglselesai') ORDER BY tanggal_jadwal ASC");
 
 $bln = array(
     '01' => 'Januari',
@@ -39,10 +41,8 @@ $bln = array(
 </head>
 
 <body>
-    <!-- <img src="<?= base_url('assets/dist/img/.png') ?>" align="left" width="90" height="90"> -->
     <p align="center"><b>
-            <font size="5">Output Surat Masuk</font> <br>
-            <font size="5">DPRD KABUPATEN KOTABARU</font><br><br>
+            <font size="5">Laporan Jadwal</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -52,13 +52,9 @@ $bln = array(
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nomor Surat Masuk</th>
-                            <th>Tanggal Terima</th>
-                            <th>Nama Pegawai</th>
-                            <th>Kategori</th>
-                            <th>Keterangan Surat</th>
-                            <th>Status</th>
+                        <th>No</th>
+                        <th>Perangkat</th>
+                        <th>Jadwal</th>
                         </tr>
                     </thead>
 
@@ -66,13 +62,22 @@ $bln = array(
                         <?php while ($row = mysqli_fetch_array($data)) { ?>
                             <tr>
                                 <td align="center"><?= $no++ ?></td>
-                                <td><?= $row['no_surat'] ?></td>
-                                <td><?= tgl_indo($row['tgl_terima']) ?></td>
-                                <td><?= $row['nama'] ?></td>
-                                <td><?= $row['nama_kategori'] ?></td>
-                                <td><?= $row['ket_surat'] ?></td>
-                                <td>Verifikasi Admin : <?=  $row['status_admin'] ?>
-                                Verifikasi Pimpinan :<?=  $row['status_pimpinan'] ?></td>
+                                <td>
+                                    <ul>
+                                        <li>Plat Nomor Bus <?= ": ".$row['plat_nomor'] ?></li>
+                                        <li>Nama Supir <?= ": ".$row['nama_supir'] ?></li>
+                                        <li>Nama Kernet <?= ": ".$row['nama_kernet'] ?></li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <b>
+                                        <li>Nama Halte <?= ": ".$row['nama_halte'] ?></li>
+                                        <li>Tanggal <?= ": ".$row['tanggal_jadwal'] ?></li>
+                                        <li>Jam <?= ": ".$row['jam'] ?></li>
+                                        </b>
+                                    </ul>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>

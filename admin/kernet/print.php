@@ -39,10 +39,8 @@ $bln = array(
 </head>
 
 <body>
-    <!-- <img src="<?= base_url('assets/dist/img/.png') ?>" align="left" width="90" height="90"> -->
     <p align="center"><b>
-            <font size="5">Output Surat Masuk</font> <br>
-            <font size="5">DPRD KABUPATEN KOTABARU</font><br><br>
+            <font size="5">Laporan Kernet</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -50,31 +48,27 @@ $bln = array(
         <div class="col-sm-12">
             <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
+                <thead class="bg-black">
+                        <tr align="center">
                             <th>No</th>
-                            <th>Nomor Surat Masuk</th>
-                            <th>Tanggal Terima</th>
-                            <th>Nama Pegawai</th>
-                            <th>Kategori</th>
-                            <th>Keterangan Surat</th>
-                            <th>Status</th>
+                            <th>Nama Kernet</th>
+                            <th>Nomor Telp</th>
+                            <th>Alamat</th>
                         </tr>
                     </thead>
-
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($data)) { ?>
+                    <tbody style="background-color: azure">
+                    <?php
+                    $no = 1;
+                    $data = $koneksi->query("SELECT * FROM kernet");
+                    while ($row = $data->fetch_array()) {
+                    ?>
                             <tr>
                                 <td align="center"><?= $no++ ?></td>
-                                <td><?= $row['no_surat'] ?></td>
-                                <td><?= tgl_indo($row['tgl_terima']) ?></td>
-                                <td><?= $row['nama'] ?></td>
-                                <td><?= $row['nama_kategori'] ?></td>
-                                <td><?= $row['ket_surat'] ?></td>
-                                <td>Verifikasi Admin : <?=  $row['status_admin'] ?>
-                                Verifikasi Pimpinan :<?=  $row['status_pimpinan'] ?></td>
+                                <td><?= $row['nama_kernet'] ?></td>
+                                <td><?= $row['no_telp'] ?></td>
+                                <td><?= $row['alamat'] ?></td>
                             </tr>
-                        <?php } ?>
+                            <?php } ?>
                     </tbody>
 
                 </table>
