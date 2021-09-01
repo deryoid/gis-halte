@@ -136,7 +136,12 @@ include '../../templates/head.php';
                                             </div>
                                         </div>
                                    
-                                     
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label">Tarif</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="tarif_halte" name="tarif_halte">
+                                            </div>
+                                        </div>
 
                                                                    
                                     </div>
@@ -185,6 +190,7 @@ include '../../templates/head.php';
         $id_bus                     = $_POST['id_bus'];
         $id_supir                   = $_POST['id_supir'];
         $id_kernet                  = $_POST['id_kernet'];
+        $tarif_halte                  = $_POST['tarif_halte'];
         
 
         $submit = $koneksi->query("INSERT INTO jadwal VALUES (
@@ -194,7 +200,8 @@ include '../../templates/head.php';
             '$id_halte',
             '$id_bus',
             '$id_supir',
-            '$id_kernet'
+            '$id_kernet',
+            '$tarif_halte'
             )");
         // var_dump($submit, $koneksi->error);
         // die;

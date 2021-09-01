@@ -102,6 +102,7 @@ include '../../templates/head.php';
                                                                 <li>Nama Halte <?= ": ".$row['nama_halte'] ?></li>
                                                                 <li>Tanggal <?= ": ".$row['tanggal_jadwal'] ?></li>
                                                                 <li>Jam <?= ": ".$row['jam'] ?></li>
+                                                                <li>Tarif <?= ": ".$row['jam'] ?></li>
                                                                 </b>
                                                             </ul>
                                                         </td>
