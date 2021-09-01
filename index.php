@@ -106,7 +106,11 @@ include 'templates_public/head.php';
 
 </html>
 <?php 
-  $data = $koneksi->query("SELECT * FROM halte");
+  $data = $koneksi->query("SELECT * FROM jadwal AS j 
+  LEFT JOIN halte AS h ON j.id_halte = h.id_halte
+  LEFT JOIN bus AS b ON j.id_bus = b.id_bus
+  LEFT JOIN supir AS s ON j.id_supir = s.id_supir
+  LEFT JOIN kernet AS k ON j.id_kernet = k.id_kernet");
   foreach ($data as $key) {
     $marker[] = $key;
   }
@@ -135,7 +139,7 @@ include 'templates_public/head.php';
 
     // console.log(item);
     var marker = L.marker([item.lat, item.lng],{icon: myIcon}).addTo(mymap);
-    marker.bindPopup("<b><?= $key['nama_halte'] ?></b></b>").openPopup();
+    marker.bindPopup("<b><?= $key['nama_halte'] ?></b><br><b>Jadwal: <?= $key['tanggal_jadwal'] ?></b><br><b>Tarif Halte: <?= $key['tarif_halte'] ?></b>").openPopup();
     })
     
 </script>

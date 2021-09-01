@@ -87,6 +87,7 @@ include 'templates_public/head.php';
                                                                 <li>Nama Halte <?= ": ".$row['nama_halte'] ?></li>
                                                                 <li>Tanggal <?= ": ".$row['tanggal_jadwal'] ?></li>
                                                                 <li>Jam <?= ": ".$row['jam'] ?></li>
+                                                                <li>Tarif <?= ": ".$row['tarif_halte'] ?></li>
                                                                 </b>
                                                             </ul>
                                                         </td>
