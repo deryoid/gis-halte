@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 13 Agu 2021 pada 02.09
+-- Waktu pembuatan: 01 Sep 2021 pada 03.47
 -- Versi server: 5.7.24
 -- Versi PHP: 7.4.12
 
@@ -41,8 +41,8 @@ CREATE TABLE `bus` (
 --
 
 INSERT INTO `bus` (`id_bus`, `kd_bus`, `merk_bus`, `plat_nomor`, `kapasitas`, `status_bus`) VALUES
-(2, 'B1201', 'Hilux', 'DA 3005 BK', '30', 'Tidak Aktif'),
-(3, 'B1200', 'Hinno', 'DA 3766 UB', '25', 'Tidak Aktif');
+(2, 'B1201', 'Hilux', 'DA 3005 BK', '30', 'Aktif'),
+(3, 'B1200', 'Hinno', 'DA 3766 UB', '25', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -79,15 +79,16 @@ CREATE TABLE `jadwal` (
   `id_halte` int(11) NOT NULL,
   `id_bus` int(11) NOT NULL,
   `id_supir` int(11) NOT NULL,
-  `id_kernet` int(11) NOT NULL
+  `id_kernet` int(11) NOT NULL,
+  `tarif_halte` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `jadwal`
 --
 
-INSERT INTO `jadwal` (`id_jadwal`, `tanggal_jadwal`, `jam`, `id_halte`, `id_bus`, `id_supir`, `id_kernet`) VALUES
-(1, '2021-08-06', '08.00', 2, 3, 1, 1);
+INSERT INTO `jadwal` (`id_jadwal`, `tanggal_jadwal`, `jam`, `id_halte`, `id_bus`, `id_supir`, `id_kernet`, `tarif_halte`) VALUES
+(1, '2021-08-06', '08.00', 2, 3, 1, 1, '30000');
 
 -- --------------------------------------------------------
 
@@ -148,7 +149,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `role`) VALUES
-(1, 'Iqbal', 'admin', 'c4ca4238a0b923820dcc509a6f75849b', 'Super Admin'),
+(1, 'Iqbal', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Super Admin'),
 (2, 'Wahyu Abdillah', 'teknisi', 'e21394aaeee10f917f581054d24b031f', 'Teknisi');
 
 --
