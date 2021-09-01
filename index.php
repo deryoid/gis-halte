@@ -137,9 +137,12 @@ include 'templates_public/head.php';
     var data = JSON.parse( '<?php echo $json ?>' );
     data.forEach(function(item){
 
-    // console.log(item);
+    console.log(item);
     var marker = L.marker([item.lat, item.lng],{icon: myIcon}).addTo(mymap);
-    marker.bindPopup("<b><?= $key['nama_halte'] ?></b><br><b>Jadwal: <?= $key['tanggal_jadwal'] ?></b><br><b>Tarif Halte: <?= $key['tarif_halte'] ?></b>").openPopup();
-    })
+    marker.bindPopup(item.nama_halte + "<br>Jadwal : " + item.tanggal_jadwal + "<br>Tarif Halte : " + item.tarif_halte).openPopup();
+
+  })
+  
     
 </script>
+
