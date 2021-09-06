@@ -19,7 +19,8 @@ PADA PEMKO BANJARMASIN </title>
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/ekko-lightbox/ekko-lightbox.css">
 
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.min.css">
-
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/daterangepicker/daterangepicker.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- Select2 -->

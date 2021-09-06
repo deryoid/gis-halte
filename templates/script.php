@@ -47,7 +47,8 @@
 
   <!-- Load File main.js yang ada di folder js -->
   <script type="text/javascript" src="<?= base_url() ?>/assets/dist/js/main.js"></script>
-
+<!-- date-range-picker -->
+<script src="<?= base_url() ?>/assets/plugins/daterangepicker/daterangepicker.js"></script>
   <script src="<?= base_url() ?>/assets/plugins/jquery/jquery.media.js"></script>
 
   <!-- AdminLTE App -->

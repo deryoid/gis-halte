@@ -74,7 +74,7 @@ $bln = array(
                                         <b>
                                         <li>Nama Halte <?= ": ".$row['nama_halte'] ?></li>
                                         <li>Tanggal <?= ": ".$row['tanggal_jadwal'] ?></li>
-                                        <li>Jam <?= ": ".$row['jam'] ?></li>
+                                        <li>Jam Keberangkatan<?= ": ".$row['jam'] ?></li>
                                         </b>
                                     </ul>
                                 </td>

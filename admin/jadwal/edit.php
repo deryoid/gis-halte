@@ -79,7 +79,7 @@ include '../../templates/head.php';
                                             </div>
                                         </div>
                                          <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label">Jam</label>
+                                            <label for="" class="col-sm-2 col-form-label">Jam Keberangkatan</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="jam" name="jam" value="<?= $row['jam'] ?>">
                                             </div>
