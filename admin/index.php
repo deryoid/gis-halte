@@ -137,7 +137,7 @@ include '../templates/head.php';
     data.forEach(function(item){
 
       var marker = L.marker([item.lat, item.lng],{icon: myIcon}).addTo(mymap);
-    marker.bindPopup(item.nama_halte + "<br>Jadwal : " + item.tanggal_jadwal + "<br>Tarif Halte : " + item.tarif_halte).openPopup();
+      marker.bindPopup(item.nama_halte + "<br>Jadwal : " + item.tanggal_jadwal + "<br>Jam Keberangkatan : " + item.jam + "<br>Tarif Halte : " + item.tarif_halte).openPopup();
 
     })
     
